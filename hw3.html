@@ -1,0 +1,51 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>d3-start</title>
+    <script src="https://d3js.org/d3.v3.js"></script>
+    <style>
+        div {
+            font-size: 7px;
+        }
+    </style>
+</head>
+
+<body>
+    <h3>HW3</h3>
+    <svg width="800" height="600">
+
+    </svg>
+
+    <script>
+        d3.json("invoice-taipei.json", function (dataSet) {
+            var svg = d3.select("svg");
+            var count = 0;
+            for (var i = 0; i < dataSet.length; i++) {
+                if (dataSet[i].date === "2016/8/1" && dataSet[i].city === "臺北市" && dataSet[i].amount > 1000000000) {
+                    d3.select("svg")
+                        .append("rect")
+                        .attr({
+                            x: 250,
+                            y: 10 + 20 * count,
+                            width: dataSet[i].amount / 100000000,
+                            height: 10,
+                            fill: "red"
+                        });
+                    d3.select("svg")
+                        .append("text")
+                        .attr({
+                            x: 0,
+                            y: 20 + 20 * count,
+                            "font-size": 15
+                        }).text(dataSet[i].industry);
+                    count = count + 1;
+                }
+
+            }
+        });
+    </script>
+</body>
+
+</html>
