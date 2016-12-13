@@ -14,9 +14,8 @@
 
 <body>
     <h3>HW3</h3>
-    <svg width="800" height="600">
-
-    </svg>
+    <svg width="800" height="275"></svg>
+    <div></div>
 
     <script>
         d3.json("invoice-taipei.json", function (dataSet) {
@@ -45,6 +44,43 @@
 
             }
         });
+
+
+        var arr = [85, 60, 99, 49, 77, 82];
+
+        bind(arr);
+        render(arr);
+
+        selection.text(function (d) {
+            return d;
+        });
+
+
+        selection.exit().remove();
+
+        function bind(data) {
+            var selection = d3.select("body")
+                .selectAll("div")
+                .data(data).style({"font-size": 15});
+            selection.enter().append("div");
+            selection.exit().remove();
+        }
+
+        function render() {
+            d3.selectAll("div")
+                .style({
+                    color: function (d) {
+                        if (d < 70) {
+                            return "red";
+                        } else {
+                            return "black";
+                        }
+                    }
+                })
+                .text(function (d, i) {
+                    return (i + 1) + ":" + d;
+                });
+        }
     </script>
 </body>
 
